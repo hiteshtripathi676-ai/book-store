@@ -387,10 +387,20 @@
                 <div class="book-image-wrapper position-relative">
                     <c:choose>
                         <c:when test="${not empty book.coverImage}">
-                            <img src="${pageContext.request.contextPath}/${book.coverImage}" 
-                                 alt="${book.title}" 
-                                 class="img-fluid rounded book-detail-image w-100"
-                                 onerror="this.src='https://via.placeholder.com/400x560/8B4513/ffffff?text=📚'">
+                            <c:choose>
+                                <c:when test="${book.coverImage.startsWith('http')}">
+                                    <img src="${book.coverImage}" 
+                                         alt="${book.title}" 
+                                         class="img-fluid rounded book-detail-image w-100"
+                                         onerror="this.src='https://via.placeholder.com/400x560/8B4513/ffffff?text=📚'">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="${pageContext.request.contextPath}/${book.coverImage}" 
+                                         alt="${book.title}" 
+                                         class="img-fluid rounded book-detail-image w-100"
+                                         onerror="this.src='https://via.placeholder.com/400x560/8B4513/ffffff?text=📚'">
+                                </c:otherwise>
+                            </c:choose>
                         </c:when>
                         <c:otherwise>
                             <img src="https://via.placeholder.com/400x560/8B4513/DAA520?text=${book.title}" 
@@ -638,10 +648,20 @@
                                 <div class="book-image-container">
                                     <c:choose>
                                         <c:when test="${not empty relBook.coverImage}">
-                                            <img src="${pageContext.request.contextPath}/${relBook.coverImage}" 
-                                                 class="book-cover" 
-                                                 alt="${relBook.title}"
-                                                 onerror="this.src='https://via.placeholder.com/200x280/8B4513/ffffff?text=📚'">
+                                            <c:choose>
+                                                <c:when test="${relBook.coverImage.startsWith('http')}">
+                                                    <img src="${relBook.coverImage}" 
+                                                         class="book-cover" 
+                                                         alt="${relBook.title}"
+                                                         onerror="this.src='https://via.placeholder.com/200x280/8B4513/ffffff?text=📚'">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="${pageContext.request.contextPath}/${relBook.coverImage}" 
+                                                         class="book-cover" 
+                                                         alt="${relBook.title}"
+                                                         onerror="this.src='https://via.placeholder.com/200x280/8B4513/ffffff?text=📚'">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:when>
                                         <c:otherwise>
                                             <img src="https://via.placeholder.com/200x280/8B4513/DAA520?text=${relBook.title}" 

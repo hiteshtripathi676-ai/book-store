@@ -599,10 +599,20 @@
                                         <div class="book-image-container position-relative">
                                             <c:choose>
                                                 <c:when test="${not empty book.coverImage}">
-                                                    <img src="${pageContext.request.contextPath}/${book.coverImage}" 
-                                                         class="book-cover" 
-                                                         alt="${book.title}"
-                                                         onerror="this.src='https://via.placeholder.com/200x280/8B4513/ffffff?text=📚'">
+                                                    <c:choose>
+                                                        <c:when test="${book.coverImage.startsWith('http')}">
+                                                            <img src="${book.coverImage}" 
+                                                                 class="book-cover" 
+                                                                 alt="${book.title}"
+                                                                 onerror="this.src='https://via.placeholder.com/200x280/8B4513/ffffff?text=📚'">
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img src="${pageContext.request.contextPath}/${book.coverImage}" 
+                                                                 class="book-cover" 
+                                                                 alt="${book.title}"
+                                                                 onerror="this.src='https://via.placeholder.com/200x280/8B4513/ffffff?text=📚'">
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img src="https://via.placeholder.com/200x280/8B4513/DAA520?text=${book.title}" 

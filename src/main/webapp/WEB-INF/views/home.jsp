@@ -181,8 +181,16 @@
                             <div class="book-image-container" style="height: 250px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #8B4513 0%, #5D2E0F 100%);">
                                 <c:choose>
                                     <c:when test="${not empty book.coverImage}">
-                                        <img src="${pageContext.request.contextPath}/${book.coverImage}" class="card-img-top book-cover" alt="${book.title}" style="width: 100%; height: 100%; object-fit: cover;"
-                                             onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'color: #FFF8DC; text-align: center; padding: 20px;\\'><i class=\\'fas fa-book fa-4x\\'></i><p style=\\'margin-top: 10px; font-family: Georgia;\\'>'+this.alt+'</p></div>';">
+                                        <c:choose>
+                                            <c:when test="${book.coverImage.startsWith('http')}">
+                                                <img src="${book.coverImage}" class="card-img-top book-cover" alt="${book.title}" style="width: 100%; height: 100%; object-fit: cover;"
+                                                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'color: #FFF8DC; text-align: center; padding: 20px;\\'><i class=\\'fas fa-book fa-4x\\'></i><p style=\\'margin-top: 10px; font-family: Georgia;\\'>'+this.alt+'</p></div>';">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="${pageContext.request.contextPath}/${book.coverImage}" class="card-img-top book-cover" alt="${book.title}" style="width: 100%; height: 100%; object-fit: cover;"
+                                                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'color: #FFF8DC; text-align: center; padding: 20px;\\'><i class=\\'fas fa-book fa-4x\\'></i><p style=\\'margin-top: 10px; font-family: Georgia;\\'>'+this.alt+'</p></div>';">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:when>
                                     <c:otherwise>
                                         <div style="color: #FFF8DC; text-align: center; padding: 20px;">
@@ -247,8 +255,16 @@
                             <div class="book-image-container" style="height: 250px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); position: relative;">
                                 <c:choose>
                                     <c:when test="${not empty book.coverImage}">
-                                        <img src="${pageContext.request.contextPath}/${book.coverImage}" class="card-img-top book-cover" alt="${book.title}" style="width: 100%; height: 100%; object-fit: cover;"
-                                             onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'color: white; text-align: center; padding: 20px;\\'><i class=\\'fas fa-book fa-4x\\'></i><p style=\\'margin-top: 10px; font-family: Georgia;\\'>'+this.alt+'</p></div>';">
+                                        <c:choose>
+                                            <c:when test="${book.coverImage.startsWith('http')}">
+                                                <img src="${book.coverImage}" class="card-img-top book-cover" alt="${book.title}" style="width: 100%; height: 100%; object-fit: cover;"
+                                                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'color: white; text-align: center; padding: 20px;\\'><i class=\\'fas fa-book fa-4x\\'></i><p style=\\'margin-top: 10px; font-family: Georgia;\\'>'+this.alt+'</p></div>';">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="${pageContext.request.contextPath}/${book.coverImage}" class="card-img-top book-cover" alt="${book.title}" style="width: 100%; height: 100%; object-fit: cover;"
+                                                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'color: white; text-align: center; padding: 20px;\\'><i class=\\'fas fa-book fa-4x\\'></i><p style=\\'margin-top: 10px; font-family: Georgia;\\'>'+this.alt+'</p></div>';">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:when>
                                     <c:otherwise>
                                         <div style="color: white; text-align: center; padding: 20px;">

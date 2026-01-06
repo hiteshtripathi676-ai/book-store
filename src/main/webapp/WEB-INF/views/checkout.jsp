@@ -372,11 +372,22 @@
                             <div class="d-flex align-items-center mb-3">
                                 <c:choose>
                                     <c:when test="${not empty item.bookCoverImage}">
-                                        <img src="${pageContext.request.contextPath}/${item.bookCoverImage}" 
-                                             alt="${item.bookTitle}" 
-                                             class="rounded me-3"
-                                             style="width: 50px; height: 70px; object-fit: cover;"
-                                             onerror="this.src='https://via.placeholder.com/50x70/8B4513/ffffff?text=📚'">
+                                        <c:choose>
+                                            <c:when test="${item.bookCoverImage.startsWith('http')}">
+                                                <img src="${item.bookCoverImage}" 
+                                                     alt="${item.bookTitle}" 
+                                                     class="rounded me-3"
+                                                     style="width: 50px; height: 70px; object-fit: cover;"
+                                                     onerror="this.src='https://via.placeholder.com/50x70/8B4513/ffffff?text=📚'">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="${pageContext.request.contextPath}/${item.bookCoverImage}" 
+                                                     alt="${item.bookTitle}" 
+                                                     class="rounded me-3"
+                                                     style="width: 50px; height: 70px; object-fit: cover;"
+                                                     onerror="this.src='https://via.placeholder.com/50x70/8B4513/ffffff?text=📚'">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:when>
                                     <c:otherwise>
                                         <img src="https://via.placeholder.com/50x70/8B4513/DAA520?text=Book" 

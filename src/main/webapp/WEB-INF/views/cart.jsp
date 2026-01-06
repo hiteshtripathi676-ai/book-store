@@ -335,8 +335,16 @@
                                         <div class="flex-shrink-0">
                                             <c:choose>
                                                 <c:when test="${not empty item.bookCoverImage}">
-                                                    <img src="${pageContext.request.contextPath}/${item.bookCoverImage}" 
-                                                         alt="${item.bookTitle}" style="width: 80px; height: 110px; object-fit: cover;">
+                                                    <c:choose>
+                                                        <c:when test="${item.bookCoverImage.startsWith('http')}">
+                                                            <img src="${item.bookCoverImage}" 
+                                                                 alt="${item.bookTitle}" style="width: 80px; height: 110px; object-fit: cover;">
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img src="${pageContext.request.contextPath}/${item.bookCoverImage}" 
+                                                                 alt="${item.bookTitle}" style="width: 80px; height: 110px; object-fit: cover;">
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img src="https://via.placeholder.com/80x110/8B4513/DAA520?text=📚" 
