@@ -51,16 +51,22 @@ public class DBConnection {
      * Get database connection
      * Creates a new connection if current one is null or closed
      * @return Connection object
+     * @throws RuntimeException if database connection fails
      */
     public Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
+                System.out.println("Attempting to connect to database at: " + DB_HOST + ":" + DB_PORT + "/" + DB_NAME);
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
                 System.out.println("Database connection established successfully!");
             }
         } catch (SQLException e) {
-            System.err.println("Failed to create database connection!");
+            String errorMsg = "Failed to connect to database. Please check environment variables: " +
+                    "MYSQLHOST=" + DB_HOST + ", MYSQLPORT=" + DB_PORT + ", MYSQLDATABASE=" + DB_NAME + 
+                    ". Error: " + e.getMessage();
+            System.err.println(errorMsg);
             e.printStackTrace();
+            throw new RuntimeException(errorMsg, e);
         }
         return connection;
     }
@@ -68,15 +74,21 @@ public class DBConnection {
     /**
      * Get a new connection (for cases where multiple connections are needed)
      * @return New Connection object
+     * @throws RuntimeException if database connection fails
      */
     public static Connection getNewConnection() {
         try {
             Class.forName(DRIVER);
+            System.out.println("Attempting new connection to database at: " + DB_HOST + ":" + DB_PORT + "/" + DB_NAME);
             return DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (ClassNotFoundException | SQLException e) {
-            System.err.println("Failed to create new database connection!");
+            String errorMsg = "Failed to create new database connection. " +
+                    "Please ensure MySQL environment variables are configured: " +
+                    "MYSQLHOST, MYSQLPORT, MYSQLDATABASE, MYSQLUSER, MYSQLPASSWORD. " +
+                    "Error: " + e.getMessage();
+            System.err.println(errorMsg);
             e.printStackTrace();
-            return null;
+            throw new RuntimeException(errorMsg, e);
         }
     }
     

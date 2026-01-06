@@ -3,9 +3,14 @@
 -- Created for College Project
 -- =====================================================
 
--- Create Database
-CREATE DATABASE IF NOT EXISTS ebook_management;
-USE ebook_management;
+-- Create Database (use 'railway' for Railway deployment)
+-- For Railway: The database 'railway' already exists, just use it
+-- CREATE DATABASE IF NOT EXISTS railway;
+-- USE railway;
+
+-- For local development, you can use:
+-- CREATE DATABASE IF NOT EXISTS ebook_management;
+-- USE ebook_management;
 
 -- =====================================================
 -- USERS TABLE (For both Admin and Customers)
@@ -58,6 +63,7 @@ CREATE TABLE books (
     stock_quantity INT DEFAULT 0,
     low_stock_threshold INT DEFAULT 5,
     is_available BOOLEAN DEFAULT TRUE,
+    cod_available BOOLEAN DEFAULT TRUE,
     seller_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

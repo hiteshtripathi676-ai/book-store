@@ -8,6 +8,7 @@ import com.ebook.dao.SellRequestDAO;
 import com.ebook.model.User;
 import com.ebook.model.Order;
 import com.ebook.model.SellRequest;
+import com.ebook.util.CloudinaryUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -345,11 +346,22 @@ public class CustomerServlet extends HttpServlet {
     }
     
     /**
-     * Handle file upload
+     * Handle file upload - uses Cloudinary for cloud storage
      */
     private String uploadFile(Part filePart, HttpServletRequest request) throws IOException {
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         
+        // Try Cloudinary first (for cloud deployment)
+        if (CloudinaryUtil.isConfigured()) {
+            try (InputStream input = filePart.getInputStream()) {
+                String cloudinaryUrl = CloudinaryUtil.uploadImage(input, fileName);
+                if (cloudinaryUrl != null) {
+                    return cloudinaryUrl;
+                }
+            }
+        }
+        
+        // Fallback to local storage (for local development)
         String extension = fileName.substring(fileName.lastIndexOf("."));
         String uniqueFileName = UUID.randomUUID().toString() + extension;
         
