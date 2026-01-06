@@ -95,7 +95,9 @@ public class EmailService {
      */
     private static String buildCustomerEmailContent(Order order, String customerName) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy, hh:mm a");
-        String orderDate = dateFormat.format(order.getOrderDate());
+        String orderDate = order.getOrderDate() != null ? 
+            dateFormat.format(order.getOrderDate()) : 
+            dateFormat.format(new java.util.Date());
         
         StringBuilder html = new StringBuilder();
         html.append("<!DOCTYPE html>")
@@ -114,17 +116,17 @@ public class EmailService {
             .append("<h1 style='margin: 0;'>📚 Order Confirmed!</h1>")
             .append("</div>")
             .append("<div class='content'>")
-            .append("<p>Dear ").append(customerName).append(",</p>")
+            .append("<p>Dear ").append(customerName != null ? customerName : "Customer").append(",</p>")
             .append("<p>Thank you for your order! We've received your order and will process it shortly.</p>")
             .append("<div class='order-box'>")
             .append("<h3 style='color: #0d6efd; margin-top: 0;'>Order Details</h3>")
             .append("<p><strong>Order Number:</strong> #").append(order.getOrderId()).append("</p>")
             .append("<p><strong>Order Date:</strong> ").append(orderDate).append("</p>")
-            .append("<p><strong>Payment Method:</strong> ").append(order.getPaymentMethod()).append("</p>")
+            .append("<p><strong>Payment Method:</strong> ").append(order.getPaymentMethod() != null ? order.getPaymentMethod() : "N/A").append("</p>")
             .append("<p><strong>Shipping Address:</strong><br>")
-            .append(order.getShippingAddress()).append("<br>")
-            .append(order.getShippingCity()).append(", ").append(order.getShippingState())
-            .append(" - ").append(order.getShippingPincode()).append("</p>")
+            .append(order.getShippingAddress() != null ? order.getShippingAddress() : "").append("<br>")
+            .append(order.getShippingCity() != null ? order.getShippingCity() : "").append(", ").append(order.getShippingState() != null ? order.getShippingState() : "")
+            .append(" - ").append(order.getShippingPincode() != null ? order.getShippingPincode() : "").append("</p>")
             .append("</div>");
         
         // Order items
@@ -163,7 +165,9 @@ public class EmailService {
      */
     private static String buildAdminEmailContent(Order order, String customerName, String customerEmail) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy, hh:mm a");
-        String orderDate = dateFormat.format(order.getOrderDate());
+        String orderDate = order.getOrderDate() != null ? 
+            dateFormat.format(order.getOrderDate()) : 
+            dateFormat.format(new java.util.Date());
         
         StringBuilder html = new StringBuilder();
         html.append("<!DOCTYPE html>")
@@ -195,17 +199,17 @@ public class EmailService {
             .append("<h3 style='color: #198754; margin-top: 0;'>Order Information</h3>")
             .append("<p><strong>Order Number:</strong> #").append(order.getOrderId()).append("</p>")
             .append("<p><strong>Order Date:</strong> ").append(orderDate).append("</p>")
-            .append("<p><strong>Payment Method:</strong> ").append(order.getPaymentMethod()).append("</p>")
-            .append("<p><strong>Payment Status:</strong> ").append(order.getPaymentStatus()).append("</p>")
+            .append("<p><strong>Payment Method:</strong> ").append(order.getPaymentMethod() != null ? order.getPaymentMethod() : "N/A").append("</p>")
+            .append("<p><strong>Payment Status:</strong> ").append(order.getPaymentStatus() != null ? order.getPaymentStatus() : "PENDING").append("</p>")
             .append("</div>")
             .append("<div class='order-box'>")
             .append("<h3 style='color: #198754; margin-top: 0;'>Customer Information</h3>")
-            .append("<p><strong>Name:</strong> ").append(customerName).append("</p>")
-            .append("<p><strong>Email:</strong> ").append(customerEmail).append("</p>")
+            .append("<p><strong>Name:</strong> ").append(customerName != null ? customerName : "N/A").append("</p>")
+            .append("<p><strong>Email:</strong> ").append(customerEmail != null ? customerEmail : "N/A").append("</p>")
             .append("<p><strong>Shipping Address:</strong><br>")
-            .append(order.getShippingAddress()).append("<br>")
-            .append(order.getShippingCity()).append(", ").append(order.getShippingState())
-            .append(" - ").append(order.getShippingPincode()).append("</p>")
+            .append(order.getShippingAddress() != null ? order.getShippingAddress() : "").append("<br>")
+            .append(order.getShippingCity() != null ? order.getShippingCity() : "").append(", ").append(order.getShippingState() != null ? order.getShippingState() : "")
+            .append(" - ").append(order.getShippingPincode() != null ? order.getShippingPincode() : "").append("</p>")
             .append("</div>");
         
         // Order items

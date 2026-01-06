@@ -12,21 +12,21 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: linear-gradient(135deg, #5D2E0F 0%, #8B4513 100%); border-bottom: 3px solid #DAA520; padding: 1.2rem 2rem; min-height: 70px;">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand fw-bold" href="${pageContext.request.contextPath}/home" style="color: #FFF8DC !important; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-size: 2rem;">
-                <i class="fas fa-book-open me-2" style="color: #DAA520;"></i>Mayur Collection and Bookstore
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: linear-gradient(135deg, #5D2E0F 0%, #8B4513 100%); border-bottom: 3px solid #DAA520;">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand fw-bold text-truncate" href="${pageContext.request.contextPath}/home" style="color: #FFF8DC !important; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                <i class="fas fa-book-open me-2 d-none d-sm-inline" style="color: #DAA520;"></i>Mayur Collection and Bookstore
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto ms-4">
+                <ul class="navbar-nav me-auto ms-lg-4">
                     <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/home" style="font-size: 1.1rem; padding: 0.8rem 1.2rem;">Home</a>
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/home">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" style="font-size: 1.1rem; padding: 0.8rem 1.2rem;">Categories</a>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
                         <ul class="dropdown-menu">
                             <c:forEach var="category" items="${categories}">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/books?category=${category.categoryId}">${category.categoryName}</a></li>
@@ -34,17 +34,17 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/books?type=NEW" style="font-size: 1.1rem; padding: 0.8rem 1.2rem;">New Books</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/books?type=NEW">New Books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/books?type=OLD" style="font-size: 1.1rem; padding: 0.8rem 1.2rem;">Old Books</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/books?type=OLD">Old Books</a>
                     </li>
                 </ul>
                 
                 <!-- Search Form -->
-                <form class="d-flex me-4" action="${pageContext.request.contextPath}/search" method="get">
+                <form class="d-flex me-lg-4 my-2 my-lg-0" action="${pageContext.request.contextPath}/search" method="get">
                     <div class="input-group">
-                        <input class="form-control" type="search" name="q" placeholder="Search books..." aria-label="Search" style="min-width: 250px;">
+                        <input class="form-control" type="search" name="q" placeholder="Search books..." aria-label="Search">
                         <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
                     </div>
                 </form>
@@ -54,7 +54,7 @@
                     <c:choose>
                         <c:when test="${not empty sessionScope.userId}">
                             <li class="nav-item">
-                                <a class="nav-link position-relative" href="${pageContext.request.contextPath}/cart" style="font-size: 1.1rem; padding: 0.8rem 1.2rem;">
+                                <a class="nav-link position-relative" href="${pageContext.request.contextPath}/cart">
                                     <i class="fas fa-shopping-cart"></i>
                                     <c:if test="${cartCount > 0}">
                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
@@ -64,8 +64,8 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" style="font-size: 1.1rem; padding: 0.8rem 1.2rem;">
-                                    <i class="fas fa-user-circle me-1"></i>${sessionScope.userName}
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user-circle me-1"></i><span class="d-none d-md-inline">${sessionScope.userName}</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <c:if test="${sessionScope.userRole == 'ADMIN'}">
@@ -82,12 +82,12 @@
                         </c:when>
                         <c:otherwise>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/login" style="font-size: 1.1rem; padding: 0.8rem 1.2rem;">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/login">
                                     <i class="fas fa-sign-in-alt me-1"></i>Login
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/register" style="font-size: 1.1rem; padding: 0.8rem 1.2rem;">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/register">
                                     <i class="fas fa-user-plus me-1"></i>Register
                                 </a>
                             </li>

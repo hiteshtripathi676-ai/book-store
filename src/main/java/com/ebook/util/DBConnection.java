@@ -13,7 +13,7 @@ public class DBConnection {
     // Database configuration
     private static final String URL = "jdbc:mysql://localhost:3306/ebook_management?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = ""; // XAMPP MySQL default has no password
+    private static final String PASSWORD = "root"; // MySQL password
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     
     // Singleton instance
