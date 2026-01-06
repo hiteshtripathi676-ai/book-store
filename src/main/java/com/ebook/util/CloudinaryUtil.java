@@ -24,6 +24,13 @@ public class CloudinaryUtil {
             ? System.getenv("CLOUDINARY_API_SECRET") : "your_api_secret";
     
     static {
+        System.out.println("========================================");
+        System.out.println("Initializing Cloudinary...");
+        System.out.println("CLOUDINARY_CLOUD_NAME: " + CLOUD_NAME);
+        System.out.println("CLOUDINARY_API_KEY: " + (API_KEY != null ? API_KEY.substring(0, Math.min(5, API_KEY.length())) + "..." : "null"));
+        System.out.println("Is Configured: " + (CLOUD_NAME != null && !CLOUD_NAME.equals("your_cloud_name")));
+        System.out.println("========================================");
+        
         cloudinary = new Cloudinary(ObjectUtils.asMap(
             "cloud_name", CLOUD_NAME,
             "api_key", API_KEY,
@@ -40,9 +47,13 @@ public class CloudinaryUtil {
      * @return The URL of the uploaded image, or null if upload fails
      */
     public static String uploadImage(InputStream inputStream, String fileName) {
+        System.out.println("uploadImage called with filename: " + fileName);
+        System.out.println("isConfigured: " + isConfigured());
+        
         try {
             // Read input stream to bytes
             byte[] bytes = inputStream.readAllBytes();
+            System.out.println("Read " + bytes.length + " bytes from input stream");
             
             // Upload to Cloudinary
             Map<String, Object> uploadResult = cloudinary.uploader().upload(bytes, ObjectUtils.asMap(
