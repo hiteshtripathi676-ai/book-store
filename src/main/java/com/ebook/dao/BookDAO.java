@@ -41,7 +41,12 @@ public class BookDAO {
             pstmt.setString(13, book.getLanguage());
             pstmt.setInt(14, book.getStockQuantity());
             pstmt.setInt(15, book.getLowStockThreshold());
-            pstmt.setInt(16, book.getSellerId());
+            // Set seller_id to NULL if it's 0 (admin adding book without seller)
+            if (book.getSellerId() > 0) {
+                pstmt.setInt(16, book.getSellerId());
+            } else {
+                pstmt.setNull(16, Types.INTEGER);
+            }
             pstmt.setBoolean(17, book.isCodAvailable());
             
             int rowsAffected = pstmt.executeUpdate();
